@@ -1,8 +1,14 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
-export default function Movie() 
+export default function Movie({image, title, releaseYear}) 
 {
     const {movie} = useParams()
-    return <h1>{movie}</h1>
-    /*Annen filminformasjon*/
+
+    return (
+        <article>
+            <img src={image} alt={title}></img>
+            <Link to={title}><h3>{title}</h3></Link>
+            <p>{releaseYear}</p>
+        </article>
+    )
 } 

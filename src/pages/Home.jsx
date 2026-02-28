@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import Movie from "./Movie"
 
 export default function Home() 
 {
@@ -64,15 +65,9 @@ export default function Home()
                 </label>
             </form>
             <section>
-                {/*Skriver informasjon om hver film som dukker opp i listen etter søk.*/}
-                {/*404 meldinger dukker opp på konsollen hvis bildet ikke finnes.*/}
-                {apiData?.data?.Search?.map((item, index) => (
-                    <article key={item?.Title+"_key_"+index}>
-                        <img src={item?.Poster} alt={item?.Title}></img>
-                        <Link to={item?.Title}><h3>{item?.Title}</h3></Link>
-                        <p>{item?.Year}</p>
-                    </article>
-                ))} 
+                {/*Oppretter dynamiske filmkomponenter om hver film som dukker opp i listen etter søk.*/}
+                {/*'404' meldinger dukker opp på konsollen hvis bildet ikke finnes.*/}
+                {apiData?.data?.Search?.map((item, index) => <Movie key={item?.Title+"_"+index+"_key"} image={item?.Poster} title={item?.Title} releaseYear={item?.Year} />)} 
             </section>
         </main>
     )
