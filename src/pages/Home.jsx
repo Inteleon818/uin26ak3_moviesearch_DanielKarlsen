@@ -1,22 +1,34 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 export default function Home() 
 {
-    const [search, setSearch] = useState()
-
-    const baseUrl = `http://www.omdbapi.com/?s=${search}&apikey=`
     /*
     IKKE LAGRE SENSITIVE OPPLYSNINGER SOM API NØKLER EKSPLISITT I OFFENTLIGE FILER!
     LEGG DE I .env FILEN!
     */
     const apiKey = 'a97941bd'
+
+    const [search, setSearch] = useState()
+    const [apiData, setApiData] = useState()
+
+    const baseUrl = `http://www.omdbapi.com/?s=${search}&type="movie"&apikey=`
+
+    {/*Søket defaulter til 'James Bond' hvis ingen søk er gjort enda.*/}
+    if (search === undefined) 
+    {
+        setSearch("James%20Bond")
+    }
+
     const getMovies = async() => 
     {
         try 
         {
             const response = await fetch(`${baseUrl}${apiKey}`)
             const data = await response.json()
-            console.log(data)
+            setApiData({data})
+            console.log("Home_data: ", data)
+            console.log("Home_apiData: ", apiData)
         }
         catch(err)
         {
@@ -24,9 +36,22 @@ export default function Home()
         }
     }
 
+    useEffect(() => 
+    {
+        getMovies()
+    }, [])
+
     const handleChange = (e) => 
     {
-        setSearch(e.target.value)
+        console.log(e.target.value)
+        console.log(e.target.value.length)
+        {/*Kjører 'getMovies()' funksjonen hvis lengden på strengen i søkefeltet er 3 karakterer elle lengre.*/}
+        if (e.target.value.length >= 3)
+        {
+            setSearch(e.target.value)
+            
+        }
+        getMovies()
     }
 
     return (
@@ -34,11 +59,21 @@ export default function Home()
             <h1>Forside</h1>
             <form>
                 <label>
-                    Søk etter film
-                    <input type="search" placeholder="Harry Potter" onChange={handleChange}></input>
+                    Søk etter film:
+                    <input type="search" name="movie_title" placeholder="Harry Potter" onChange={handleChange}></input>
                 </label>
             </form>
-            <button onClick={getMovies}>Søk</button>
+            <section>
+                {/*Skriver informasjon om hver film som dukker opp i listen etter søk.*/}
+                {/*404 meldinger dukker opp på konsollen hvis bildet ikke finnes.*/}
+                {apiData?.data?.Search?.map((item, index) => (
+                    <article key={item?.Title+"_key_"+index}>
+                        <img src={item?.Poster} alt={item?.Title}></img>
+                        <Link to={item?.Title}><h3>{item?.Title}</h3></Link>
+                        <p>{item?.Year}</p>
+                    </article>
+                ))} 
+            </section>
         </main>
     )
 }
