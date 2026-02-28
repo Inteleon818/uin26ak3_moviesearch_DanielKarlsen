@@ -26,6 +26,7 @@ export default function Home()
         try 
         {
             const response = await fetch(`${baseUrl}${apiKey}`)
+            console.log("Home_response: ", response)
             const data = await response.json()
             setApiData({data})
             console.log("Home_data: ", data)
@@ -43,16 +44,19 @@ export default function Home()
     }, [])
 
     const handleChange = (e) => 
-    {
-        console.log(e.target.value)
-        console.log(e.target.value.length)
-        {/*Kjører 'getMovies()' funksjonen hvis lengden på strengen i søkefeltet er 3 karakterer elle lengre.*/}
+    { 
+        {/*Setter søkeverdi hvis lengden på strengen i søkefeltet er 3 karakterer eller lengre.*/} 
         if (e.target.value.length >= 3)
         {
-            setSearch(e.target.value)
-            
+            setSearch(e.target.value) 
+        }
+        else 
+        {
+            setSearch("")
         }
         getMovies()
+        console.log("Home_e.target.value: ", e.target.value)
+        console.log("Home_e.target.value.length: ", e.target.value.length)
     }
 
     return (
@@ -61,7 +65,7 @@ export default function Home()
             <form>
                 <label>
                     Søk etter film:
-                    <input type="search" name="movie_title" placeholder="Harry Potter" onChange={handleChange}></input>
+                    <input type="search" name="movie_title_input" placeholder="Harry Potter" onChange={handleChange}></input>
                 </label>
             </form>
             <section>
