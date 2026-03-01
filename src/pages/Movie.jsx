@@ -1,15 +1,12 @@
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
-export default function Movie({image, title, releaseYear}) 
+{/*Film slug sider for når man klikker på en filmlenke på forsiden.*/}
+export default function Movie() 
 {
     const {movie} = useParams()
     console.log("movie_slug: ", movie)
 
     return (
-        <article>
-            <img src={image} alt={title}></img>
-            <Link to={title}><h3>{title}</h3></Link>
-            <p>{releaseYear}</p>
-        </article>
+        <h1>{movie}</h1>
     )
 } 

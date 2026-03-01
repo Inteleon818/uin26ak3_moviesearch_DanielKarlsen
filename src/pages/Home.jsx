@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import Movie from "./Movie"
+import SearchResults from "../components/SearchResults"
 
 export default function Home() 
 {
@@ -68,11 +67,7 @@ export default function Home()
                     <input type="search" name="movie_title_input" placeholder="Harry Potter" onChange={handleChange}></input>
                 </label>
             </form>
-            <section>
-                {/*Oppretter dynamiske filmkomponenter om hver film som dukker opp i listen etter søk.*/}
-                {/*'404' meldinger dukker opp på konsollen hvis bildet ikke finnes.*/}
-                {apiData?.data?.Search?.map((item, index) => <Movie key={item?.Title+"_"+index+"_key"} image={item?.Poster} title={item?.Title} releaseYear={item?.Year} />)} 
-            </section>
+            <SearchResults apiData={apiData} />
         </main>
     )
 }
