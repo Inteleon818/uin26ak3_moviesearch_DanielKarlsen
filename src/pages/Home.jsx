@@ -85,6 +85,12 @@ export default function Home()
     }, [history])
     console.log("Home_history", history)
 
+    /*Tømmer localStorage for nøkkel-verdipar.*/
+    function deleteLocalStorage()
+    {
+        localStorage.clear()
+    }
+
     return (
         <main>
             <h1>Forside</h1>
@@ -101,6 +107,9 @@ export default function Home()
                     null
                 }
                 <button onClick={getMovies}>Søk</button>
+            </form>
+            <form onSubmit={deleteLocalStorage}>
+                <button>Slett localStorage</button>
             </form>
             <SearchResults apiData={apiData} />
         </main>
