@@ -58,10 +58,15 @@ export default function Home()
         {
             setSearch("")
         }
-        getMovies()
         console.log("Home_e.target.value: ", e.target.value)
         console.log("Home_e.target.value.length: ", e.target.value.length)
     }
+
+    {/*Oppdaterer filmvisning så fort nye karakterer er skrevet i søkefeltet.*/}
+    useEffect(() => 
+    {
+        getMovies()
+    }, [search])
 
     const handleSubmit = (e) => 
     {

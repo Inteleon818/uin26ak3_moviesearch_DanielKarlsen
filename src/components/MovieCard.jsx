@@ -4,6 +4,18 @@ import { Link } from "react-router-dom"
    som viser informasjon om filmen.*/}
 export default function MovieCard({image, title, releaseYear}) 
 {
+    /*https://share.google/aimode/5dww4bJp5dg7eyCLl*/
+    /*Forsøk på å håndtere 404 errors*/
+    /*
+    fetch(image).then(response => 
+    {
+        if (!response.ok) 
+        {
+            image = "some-default-image"
+        }
+    })
+    */
+
     return (
         <article>
             <img src={image} alt={title}></img>
