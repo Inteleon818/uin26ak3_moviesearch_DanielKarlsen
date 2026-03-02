@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 {/*Film slug sider for når man klikker på en filmlenke på forsiden.*/}
 export default function Movie() 
@@ -7,11 +7,11 @@ export default function Movie()
     const {movie} = useParams()
     console.log("movie_slug: ", movie)
 
-    const [apiData, setApiData] = useState()
+    const [apiData, setApiData] = useState({})
 
     const apiKey = import.meta.env.VITE_APP_API_KEY
 
-    const baseUrl = `http://www.omdbapi.com/?s=${movie}&type="movie"&apikey=`
+    const baseUrl = `http://www.omdbapi.com/?t=${movie}&type="movie"&apikey=`
 
     const getMovie = async() => 
     {
@@ -38,10 +38,14 @@ export default function Movie()
 
     return (
         <>
-            <img src={apiData?.data?.Search?.[0]?.Poster} alt={movie}></img>
+            <Link to="/"><h2>Tilbake til forsiden</h2></Link>
+
+            <img src={apiData?.data?.Poster} alt={movie}></img>
             <h1>{movie}</h1>
-            <p>Release year: {apiData?.data?.Search?.[0]?.Year}</p>
-            <p>ImdbID: {apiData?.data?.Search?.[0]?.imdbID}</p>
+            <p>{apiData?.data?.Released}</p>
+            <p>{apiData?.data?.Plot}</p>
+            <p>{apiData?.data?.Actors}</p>
+            <p>{apiData?.data?.Genre}</p>
         </>
     )
 } 

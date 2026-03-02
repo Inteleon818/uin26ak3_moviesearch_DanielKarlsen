@@ -93,7 +93,7 @@ export default function Home()
 
     return (
         <main>
-            <h1>Forside</h1>
+            <h1>Filmsøk</h1>
             <form onSubmit={handleSubmit}>
                 <label>
                     Søk etter film:
