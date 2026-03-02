@@ -1,0 +1,12 @@
+#search_form {
+    button {
+        margin: 0 auto;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+}
+
+#delete_button {
+    margin-bottom: 1rem;
+}

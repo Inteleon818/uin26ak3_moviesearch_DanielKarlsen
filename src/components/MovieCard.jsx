@@ -1,3 +1,4 @@
+import '../styles/MovieCard.css'
 import { Link } from "react-router-dom"
 
 {/*Representerer filmer på forsiden, hver film på forsiden har en lenke til en dynamisk slug side 

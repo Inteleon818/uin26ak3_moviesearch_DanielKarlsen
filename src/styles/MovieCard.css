@@ -1,0 +1,15 @@
+article {
+    flex: 0;
+    max-width: 25vw;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+    img {
+        max-width: 25vw;
+        max-height: 50vh;
+    }
+
+    h3 {
+        min-width: 20vw;
+    }
+}

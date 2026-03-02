@@ -1,3 +1,4 @@
+import '../styles/SearchResults.css'
 import MovieCard from "./MovieCard";
 
 {/*Inneholder filmer som vises etter søking.*/}

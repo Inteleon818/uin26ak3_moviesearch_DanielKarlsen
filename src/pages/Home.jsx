@@ -1,3 +1,4 @@
+import '../styles/Home.css'
 import { useEffect, useState } from "react"
 import SearchResults from "../components/SearchResults"
 import History from "../components/History"
@@ -94,7 +95,7 @@ export default function Home()
     return (
         <main>
             <h1>Filmsøk</h1>
-            <form onSubmit={handleSubmit}>
+            <form id="search_form" onSubmit={handleSubmit}>
                 <label>
                     Søk etter film:
                     <input type="search" name="movie_title_input" placeholder="Harry Potter" onChange={handleChange} onFocus={() => setFocused(true)} /*onBlur={() => setFocused(false)}*/></input>
@@ -108,7 +109,7 @@ export default function Home()
                 }
                 <button onClick={getMovies}>Søk</button>
             </form>
-            <form onSubmit={deleteLocalStorage}>
+            <form id="delete_button" onSubmit={deleteLocalStorage}>
                 <button>Slett localStorage</button>
             </form>
             <SearchResults apiData={apiData} />
