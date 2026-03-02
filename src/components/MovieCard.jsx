@@ -16,10 +16,14 @@ export default function MovieCard({image, title, releaseYear})
     })
     */
 
+    /*Formaterer tittel-strengen slik at lenken fremdeles fungerer selv om tittelen på filmen har kolon i navnet.*/
+    const titleRegex = /[:]/
+    const formattedTitle = title.replace(titleRegex, "")
+
     return (
         <article>
             <img src={image} alt={title}></img>
-            <Link to={title}><h3>{title}</h3></Link>
+            <Link to={formattedTitle}><h3>{title}</h3></Link>
             <p>{releaseYear}</p>
         </article>
     )
