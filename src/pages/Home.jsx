@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react"
 import SearchResults from "../components/SearchResults"
+import History from "../components/History"
 
 export default function Home() 
 {
-    /*
-    IKKE LAGRE SENSITIVE OPPLYSNINGER SOM API NØKLER EKSPLISITT I OFFENTLIGE FILER!
-    LEGG DE I .env FILEN!
-    */
-    const apiKey = 'a97941bd'
+    const apiKey = import.meta.env.VITE_APP_API_KEY
 
     const [search, setSearch] = useState()
     const [apiData, setApiData] = useState()
+    /*Variabel som lagrer verdiene i localStorage.*/
+    const storedHistory = localStorage.getItem("search")
+    /*Default verdi til 'history' er verdiene i 'storedHistory' hvis det fins verdier der.
+      'JSON.parse' konverterer en JSON string til et JavaScript objekt.*/
+    const [history, setHistory] = useState(storedHistory ? JSON.parse(storedHistory) : [])
+    const [focused, setFocused] = useState(false)
+
+    console.log("Home_storedHistory", storedHistory)
 
     const baseUrl = `http://www.omdbapi.com/?s=${search}&type="movie"&apikey=`
 
@@ -58,14 +63,39 @@ export default function Home()
         console.log("Home_e.target.value.length: ", e.target.value.length)
     }
 
+    const handleSubmit = (e) => 
+    {
+        e.preventDefault()
+        e.target.reset()
+
+        /*'history' beholder tidligere verdier + den nye søkeverdien.*/
+        setHistory((prev) => [...prev, search])
+    }
+
+    useEffect(() => 
+    {
+        /*localStorage får en ny verdi så fort history oppdaterer seg.
+          'JSON.stringify' konverterer et JavaScript objekt til en JSON string.*/
+        localStorage.setItem("search", JSON.stringify(history))
+    }, [history])
+    console.log("Home_history", history)
+
     return (
         <main>
             <h1>Forside</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>
                     Søk etter film:
-                    <input type="search" name="movie_title_input" placeholder="Harry Potter" onChange={handleChange}></input>
+                    <input type="search" name="movie_title_input" placeholder="Harry Potter" onChange={handleChange} onFocus={() => setFocused(true)} /*onBlur={() => setFocused(false)}*/></input>
                 </label>
+                {
+                focused 
+                ?
+                    <History history={history} setSearch={setSearch} />
+                :
+                    null
+                }
+                <button onClick={getMovies}>Søk</button>
             </form>
             <SearchResults apiData={apiData} />
         </main>

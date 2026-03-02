@@ -9,11 +9,7 @@ export default function Movie()
 
     const [apiData, setApiData] = useState()
 
-    /*
-    IKKE LAGRE SENSITIVE OPPLYSNINGER SOM API NØKLER EKSPLISITT I OFFENTLIGE FILER!
-    LEGG DE I .env FILEN!
-    */
-    const apiKey = 'a97941bd'
+    const apiKey = import.meta.env.VITE_APP_API_KEY
 
     const baseUrl = `http://www.omdbapi.com/?s=${movie}&type="movie"&apikey=`
 
