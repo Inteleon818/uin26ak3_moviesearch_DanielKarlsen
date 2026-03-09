@@ -21,7 +21,7 @@ export default function Movie()
             const response = await fetch(`${baseUrl}${apiKey}`)
             console.log("Movie_response: ", response)
             const data = await response.json()
-            setApiData({data})
+            setApiData(data)
             console.log("Movie_data: ", data)
         }
         catch(err)
@@ -38,15 +38,15 @@ export default function Movie()
     }, [])
 
     return (
-        <>
+        <main>
             <Link to="/"><h2>Tilbake til forsiden</h2></Link>
 
-            <img src={apiData?.data?.Poster} alt={movie}></img>
+            <img src={apiData?.Poster} alt={movie}></img>
             <h1>{movie}</h1>
-            <p>{apiData?.data?.Released}</p>
-            <p>{apiData?.data?.Plot}</p>
-            <p>{apiData?.data?.Actors}</p>
-            <p>{apiData?.data?.Genre}</p>
-        </>
+            <p>{apiData?.Released}</p>
+            <p>{apiData?.Plot}</p>
+            <p>{apiData?.Actors}</p>
+            <p>{apiData?.Genre}</p>
+        </main>
     )
 } 

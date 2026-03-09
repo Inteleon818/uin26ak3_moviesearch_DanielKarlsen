@@ -31,11 +31,9 @@ export default function Home()
         try 
         {
             const response = await fetch(`${baseUrl}${apiKey}`)
-            console.log("Home_response: ", response)
             const data = await response.json()
-            setApiData({data})
+            setApiData(data?.Search)
             console.log("Home_data: ", data)
-            console.log("Home_apiData: ", apiData)
         }
         catch(err)
         {
@@ -47,6 +45,8 @@ export default function Home()
     {
         getMovies()
     }, [])
+
+    console.log("Home_apiData: ", apiData)
 
     const handleChange = (e) => 
     { 
@@ -114,5 +114,5 @@ export default function Home()
             </form>
             <SearchResults apiData={apiData} />
         </main>
-    )
-}
+    ) 
+} 

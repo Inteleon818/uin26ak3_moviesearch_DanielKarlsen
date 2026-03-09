@@ -5,27 +5,17 @@ import { Link } from "react-router-dom"
    som viser informasjon om filmen.*/}
 export default function MovieCard({image, title, releaseYear}) 
 {
-    /*https://share.google/aimode/5dww4bJp5dg7eyCLl*/
-    /*Forsøk på å håndtere 404 errors*/
-    /*
-    fetch(image).then(response => 
-    {
-        if (!response.ok) 
-        {
-            image = "some-default-image"
-        }
-    })
-    */
-
     /*Formaterer tittel-strengen slik at lenken fremdeles fungerer selv om tittelen på filmen har kolon i navnet.*/
     const titleRegex = /[:]/
     const formattedTitle = title.replace(titleRegex, "")
 
     return (
         <article>
-            <img src={image} alt={title}></img>
+            {/*Takk til Tina Kringen for å hjelpe meg med behandling av manglende bilder i api-kall.*/}
+            {/*Kilde til placeholder bilde: https://fontawesome.com/icons/clapperboard?f=classic&s=solid*/}
+            <img src={image} alt={title} onError={(e) => {e.target.src = "../clapperboard-solid.png"}}></img>
             <Link to={formattedTitle}><h3>{title}</h3></Link>
             <p>{releaseYear}</p>
         </article>
     )
-} 
+}
